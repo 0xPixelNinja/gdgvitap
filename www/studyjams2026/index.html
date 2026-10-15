@@ -88,15 +88,35 @@
   .nav-btn:hover { background: var(--g-blue); transform: scale(1.05); }
 
   @media (max-width: 800px) {
-    body, html { overflow: auto; }
-    .slide { flex-direction: column; padding: 28px 20px 88px; height: auto; min-height: 100vh; }
+    body, html { height: auto; overflow: auto; }
+    .deck-container {
+      height: auto;
+      overflow: visible;
+      scroll-snap-type: none;
+    }
+    .slide {
+      flex-direction: column;
+      width: 100%;
+      height: auto;
+      min-height: 0;
+      padding: 28px 16px 108px;
+      scroll-snap-align: none;
+    }
     .col-left, .col-right, .col-center { width: 100%; padding-right: 0; }
-    h1 { font-size: 2.1rem; }
-    .col-center h1 { font-size: 2.4rem !important; }
-    p { font-size: 1.05rem; }
-    .image-wrapper { max-height: none; height: auto; }
-    .image-wrapper img { height: auto; }
-    .col-center img { width: min(100%, 420px) !important; }
+    h1 { font-size: 1.85rem; }
+    .col-center h1 { font-size: 2rem !important; }
+    p { font-size: 1rem; }
+    .image-wrapper {
+      max-width: none;
+      max-height: none;
+      height: auto;
+    }
+    .image-wrapper img { width: 100%; height: auto; }
+    .col-center img { width: min(100%, 280px) !important; }
+    .qr-card { padding: 20px !important; max-width: 100%; }
+    .qr-card img { width: min(220px, 70vw) !important; height: auto !important; }
+    .nav-bar { left: 16px; right: 16px; justify-content: space-between; }
+    .nav-btn { width: 52px; height: 52px; }
   }
   </style>
 </head>
@@ -185,7 +205,7 @@
   <!-- Slide 6: Make Profile Public -->
   <section class="slide" id="slide-6">
     <div class="col-left">
-      <div class="pill pill-r">Step 5 â€¢ CRITICAL</div>
+      <div class="pill pill-r">Step 5 · Critical</div>
       <h1>Make it Public.</h1>
       <p>This is the most important step! Under the "Public visibility" section, you <strong>MUST</strong> check the box that says <strong>Make profile public</strong>.</p>
     </div>
@@ -221,7 +241,7 @@
       <a href="https://docs.google.com/forms/d/e/1FAIpQLScIxD14Pyc183PbDLHcS9N-nbQRRYSncqY0TP3g7qSsfWgnKQ/viewform" target="_blank" class="btn-primary" style="display: inline-block; background: #4285F4; color: white; padding: 15px 32px; border-radius: 8px; text-decoration: none; font-size: 1.2rem; font-weight: 700; margin-top: 10px;">Open Registration Form &rarr;</a>
     </div>
     <div class="col-right">
-      <div style="background: white; padding: 40px; border-radius: 20px; text-align: center; box-shadow: 0 15px 35px rgba(0,0,0,0.15); border: 2px solid #E8EAED;">
+      <div class="qr-card" style="background: white; padding: 40px; border-radius: 20px; text-align: center; box-shadow: 0 15px 35px rgba(0,0,0,0.15); border: 2px solid #E8EAED;">
         <h2 style="color: #202124; margin-bottom: 20px;">Scan to Register</h2>
         <img src="https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=https%3A%2F%2Fdocs.google.com%2Fforms%2Fd%2Fe%2F1FAIpQLScIxD14Pyc183PbDLHcS9N-nbQRRYSncqY0TP3g7qSsfWgnKQ%2Fviewform" alt="Form QR" style="width: 250px; height: 250px; border-radius: 10px; border: 2px solid #E8EAED;">
       </div>
@@ -276,7 +296,7 @@
   <!-- Slide 11: Form - Page 4 -->
   <section class="slide" id="slide-11">
     <div class="col-left">
-      <div class="pill pill-r">Step 10 â€¢ DO NOT SKIP</div>
+      <div class="pill pill-r">Step 10 · Do not skip</div>
       <h1>The Referral Code.</h1>
       <p>Under "Choose your Organiser", select <strong>GDG on Campus Organizer</strong>.</p>
       <p>In the text box for "Organizer's Referral Code", you must type exactly: <strong>GDGC-VITAP</strong></p>
@@ -292,7 +312,7 @@
   <!-- Slide 12: Form - Page 5 -->
   <section class="slide" id="slide-12">
     <div class="col-left">
-      <div class="pill pill-y">Step 11 â€¢ WARNING</div>
+      <div class="pill pill-y">Step 11 · Warning</div>
       <h1>Verify Account<br>& Email.</h1>
       <p>You must select "I verify" confirming your account is new (created on/after Sept 14, 2026).</p>
       <p style="color: var(--g-red); font-weight: 700;">DOUBLE CHECK YOUR EMAIL!</p>
@@ -308,7 +328,7 @@
   <!-- Slide 13: Form - Page 6 -->
   <section class="slide" id="slide-13">
     <div class="col-left">
-      <div class="pill pill-r">Step 12 â€¢ FATAL ERROR RISK</div>
+      <div class="pill pill-r">Step 12 · Do not paste the example</div>
       <h1>Paste Your URL.</h1>
       <p>This is where applications get rejected!</p>
       <p><strong>DO NOT</strong> copy-paste the example URL text shown on the form.</p>
@@ -356,19 +376,36 @@
 
 <script>
   const container = document.getElementById('deckContainer');
-  function nextSlide() { container.scrollBy({ top: window.innerHeight, behavior: 'smooth' }); }
-  function prevSlide() { container.scrollBy({ top: -window.innerHeight, behavior: 'smooth' }); }
+  const slides = Array.from(container.querySelectorAll('.slide'));
+  const phone = () => window.matchMedia('(max-width: 800px)').matches;
+  function currentIndex() {
+    const mark = phone() ? window.scrollY + 80 : container.scrollTop + 80;
+    let index = 0;
+    slides.forEach((slide, i) => {
+      const top = phone() ? slide.getBoundingClientRect().top + window.scrollY : slide.offsetTop;
+      if (top <= mark) index = i;
+    });
+    return index;
+  }
+  function go(index) {
+    const slide = slides[Math.max(0, Math.min(slides.length - 1, index))];
+    if (!slide) return;
+    if (phone()) slide.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    else container.scrollTo({ top: slide.offsetTop, behavior: 'smooth' });
+  }
+  function nextSlide() { go(currentIndex() + 1); }
+  function prevSlide() { go(currentIndex() - 1); }
   window.addEventListener('keydown', (e) => {
+    if (phone()) return;
     if (e.key === 'ArrowDown' || e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); nextSlide(); }
     else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') { e.preventDefault(); prevSlide(); }
   });
-setInterval(() => {
-    if (container.scrollTop + container.clientHeight >= container.scrollHeight - 10) {
-      container.scrollTo({ top: 0, behavior: 'smooth' }); 
-    } else {
-      nextSlide();
-    }
-  }, 10000);
+  if (!phone()) {
+    setInterval(() => {
+      if (currentIndex() >= slides.length - 1) go(0);
+      else nextSlide();
+    }, 10000);
+  }
 </script>
 
 </body>
