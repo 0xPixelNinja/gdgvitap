@@ -1,260 +1,375 @@
-<!doctype html>
-<html lang="en" data-theme="light">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Study Jams 2026 · GDG on Campus VIT-AP</title>
-    <meta name="description" content="Register for Google Cloud Study Jams 2026. Make your Skills profile public and use the organiser code GDGC-VITAP." />
-    <link rel="icon" href="/icon.svg" type="image/svg+xml" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&family=Google+Sans+Code:wght@600&family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet" />
-    <link rel="stylesheet" href="/site.css" />
-    <script>
-      (function () {
-        try {
-          var t = localStorage.getItem("gdg-theme");
-          if (!t) t = matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
-          document.documentElement.setAttribute("data-theme", t);
-        } catch (e) {}
-      })();
-    </script>
-  </head>
-  <body>
-    <a class="skip" href="#main">Skip to content</a>
-    <header class="bar">
-      <div class="bar-in">
-        <a class="logo" href="/">
-          <span class="dots" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
-          GDG on Campus
-        </a>
-        <nav class="nav-links" aria-label="Primary">
-          <a href="/studyjams2026/" aria-current="page">Study Jams</a>
-        </nav>
-        <div class="bar-actions">
-          <a class="btn btn-filled" href="https://docs.google.com/forms/d/e/1FAIpQLScIxD14Pyc183PbDLHcS9N-nbQRRYSncqY0TP3g7qSsfWgnKQ/viewform" target="_blank" rel="noreferrer">Register</a>
-          <button class="theme" type="button" aria-label="Switch color theme">
-            <span class="ms sun" aria-hidden="true">light_mode</span>
-            <span class="ms moon" aria-hidden="true">dark_mode</span>
-          </button>
-        </div>
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Registration Guide - Cloud Study Jams</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Roboto:wght@500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --g-blue: #4285F4;
+    --g-red: #EA4335;
+    --g-yellow: #FBBC04;
+    --g-green: #34A853;
+    --g-dark: #202124;
+    --g-light: #F8F9FA;
+    --g-gray: #5F6368;
+    --g-border: #E8EAED;
+  }
+  
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body, html {
+    width: 100%; height: 100%;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    background-color: var(--g-dark);
+    color: var(--g-dark);
+    overflow: hidden;
+  }
+
+  .deck-container {
+    width: 100vw; height: 100vh;
+    scroll-snap-type: y mandatory;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+  }
+
+  .slide {
+    width: 100vw; height: 100vh;
+    scroll-snap-align: start;
+    background-color: #ffffff;
+    position: relative;
+    display: flex;
+    padding: 60px 80px;
+    overflow: hidden;
+  }
+
+  h1 { font-family: 'Roboto', sans-serif; font-size: 3.5rem; font-weight: 900; color: var(--g-dark); line-height: 1.15; margin-bottom: 20px; }
+  h2 { font-size: 2.2rem; font-weight: 800; color: var(--g-dark); margin-bottom: 15px; }
+  p { font-size: 1.4rem; font-weight: 500; color: var(--g-gray); line-height: 1.5; margin-bottom: 20px; }
+  
+  .col-left { width: 42%; display: flex; flex-direction: column; justify-content: center; z-index: 2; padding-right: 40px; }
+  .col-right { width: 58%; display: flex; justify-content: center; align-items: center; z-index: 2; }
+  .col-center { width: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; z-index: 2; }
+
+  .pill { padding: 8px 22px; border-radius: 50px; font-weight: 700; font-size: 1.05rem; display: inline-block; margin-bottom: 18px; width: fit-content; text-transform: uppercase; letter-spacing: 1px;}
+  .pill-b { background-color: #E8F0FE; color: var(--g-blue); }
+  .pill-r { background-color: #FCE8E6; color: var(--g-red); }
+  .pill-y { background-color: #FEF7E0; color: #B06000; }
+  .pill-g { background-color: #E6F4EA; color: var(--g-green); }
+
+  /* Interactive Image Container */
+  .image-wrapper {
+    width: 100%;
+    max-width: 850px;
+    height: 100%;
+    max-height: 75vh; /* Prevents image from stretching out of bounds */
+    border-radius: 12px;
+    box-shadow: 0 20px 45px rgba(0,0,0,0.15);
+    border: 3px solid var(--g-border);
+    background: #F1F3F4; /* Light background so screenshots blend nicely */
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .image-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* Shows the full image without any cutting/cropping */
+    display: block;
+  }
+
+  /* Navigation */
+  .nav-bar { position: fixed; bottom: 24px; right: 30px; display: flex; gap: 12px; z-index: 999; }
+  .nav-btn { background: rgba(32, 33, 36, 0.85); color: white; border: none; border-radius: 50%; width: 44px; height: 44px; font-size: 1.2rem; cursor: pointer; transition: all 0.2s ease; }
+  .nav-btn:hover { background: var(--g-blue); transform: scale(1.05); }
+
+  @media (max-width: 800px) {
+    body, html { overflow: auto; }
+    .slide { flex-direction: column; padding: 28px 20px 88px; height: auto; min-height: 100vh; }
+    .col-left, .col-right, .col-center { width: 100%; padding-right: 0; }
+    h1 { font-size: 2.1rem; }
+    .col-center h1 { font-size: 2.4rem !important; }
+    p { font-size: 1.05rem; }
+    .image-wrapper { max-height: none; height: auto; }
+    .image-wrapper img { height: auto; }
+    .col-center img { width: min(100%, 420px) !important; }
+  }
+  </style>
+</head>
+<body>
+
+<div class="nav-bar">
+  <button class="nav-btn" onclick="prevSlide()" title="Previous">&#8593;</button>
+  <button class="nav-btn" onclick="nextSlide()" title="Next">&#8595;</button>
+</div>
+
+<div class="deck-container" id="deckContainer">
+
+  <!-- Slide 1: Title -->
+  <section class="slide" id="slide-1">
+    <div class="col-center">
+      <img src="media/cloud-mark.jpeg" alt="Google Cloud" style="width: 900px; margin-bottom: 30px;">
+      <div class="pill pill-b">Step-by-Step Tutorial</div>
+      <h1 style="font-size: 4.5rem; margin-bottom: 20px;">Study Jams '27<br>Registration Guide</h1>
+      <p style="font-size: 1.8rem; max-width: 800px; margin-bottom: 30px;">How to correctly configure your Google Skills profile, make it public, and secure your spot.</p>
+      <div class="pill pill-r" style="font-size: 1.2rem;">Pay strict attention: Missing a step means missing swags!</div>
+    </div>
+  </section>
+
+  <!-- Slide 2: Sign In -->
+  <section class="slide" id="slide-2">
+    <div class="col-left">
+      <div class="pill pill-b">Step 1</div>
+      <h1>Sign In.</h1>
+      <p>Go to the Google Skills platform (skills.google).</p>
+      <p>Click on the <strong>Sign In</strong> button in the top right corner.</p>
+      <div style="background: #FEF7E0; padding: 20px; border-radius: 12px; border-left: 5px solid #F9AB00; margin-top: 15px;">
+        <p style="margin: 0; font-size: 1.1rem; font-weight: 700; color: #8F4C00;">Pro Tip: Create a NEW account with a fresh email if you already earned badges in previous years!</p>
       </div>
-    </header>
-    <main id="main">
-      <div class="wrap">
-        <div class="page-head">
-          <span class="badge">Google Cloud Study Jams</span>
-          <img class="mark" src="/studyjams2026/media/cloud-mark.jpeg" alt="Google Cloud" />
-          <h1>Study Jams 2026</h1>
-          <p class="lead">
-            Set up a public Google Skills profile, then register with the
-            organiser code. Missing a step means missing the swags.
-          </p>
-          <div class="code-row">
-            <span class="code">GDGC-VITAP</span>
-            <button class="btn btn-quiet" type="button" data-copy="GDGC-VITAP">Copy code</button>
-            <a class="btn btn-filled" href="https://docs.google.com/forms/d/e/1FAIpQLScIxD14Pyc183PbDLHcS9N-nbQRRYSncqY0TP3g7qSsfWgnKQ/viewform" target="_blank" rel="noreferrer">Open the form</a>
-          </div>
-        </div>
-
-        <div class="callout">
-          <strong>Use a new Google account</strong> if you already earned badges
-          in an earlier year. The account must be created on or after
-          14 September 2026. Type the organiser code exactly as
-          <strong>GDGC-VITAP</strong>.
-        </div>
-
-        <div class="steps">
-          <article class="step">
-            <div>
-              <span class="pill pill-b">Step 1</span>
-              <h2>Sign in to Google Skills</h2>
-              <p>Open skills.google and choose Sign in at the top right.</p>
-              <p>If you already have badges from a previous year, create a new account with a fresh email first.</p>
-            </div>
-            <figure class="shot">
-              <img src="/studyjams2026/media/01-skills-home.jpg" alt="Google Skills home page with the Sign in button" />
-            </figure>
-          </article>
-
-          <article class="step">
-            <div>
-              <span class="pill pill-y">Step 2</span>
-              <h2>Authorize the account</h2>
-              <p>Pick the Google account you want linked to Google Skills, then choose Continue.</p>
-            </div>
-            <figure class="shot">
-              <img src="/studyjams2026/media/02-authorize.png" alt="Google account chooser for Google Skills" />
-            </figure>
-          </article>
-
-          <article class="step">
-            <div>
-              <span class="pill pill-b">Step 3</span>
-              <h2>Accept the terms</h2>
-              <p>Read the Terms of Service and choose I Accept so the dashboard opens.</p>
-            </div>
-            <figure class="shot">
-              <img src="/studyjams2026/media/03-terms.png" alt="Google Skills terms of service" />
-            </figure>
-          </article>
-
-          <article class="step">
-            <div>
-              <span class="pill pill-y">Step 4</span>
-              <h2>Open Settings</h2>
-              <p>On the dashboard, open your profile picture at the top right, then choose Settings.</p>
-            </div>
-            <figure class="shot">
-              <img src="/studyjams2026/media/04-settings.jpg" alt="Profile menu with Settings" />
-            </figure>
-          </article>
-
-          <article class="step">
-            <div>
-              <span class="pill pill-r">Step 5</span>
-              <h2>Make the profile public</h2>
-              <p>Under Public visibility, check Make profile public. This step is required. A private profile cannot be verified.</p>
-            </div>
-            <figure class="shot">
-              <img src="/studyjams2026/media/05-public.png" alt="Account settings with the public profile checkbox" />
-            </figure>
-          </article>
-
-          <article class="step">
-            <div>
-              <span class="pill pill-g">Step 6</span>
-              <h2>Copy your profile link</h2>
-              <p>After the box is checked, a green banner shows the public URL. Copy that exact link. You will paste it into the form later.</p>
-            </div>
-            <figure class="shot">
-              <img src="/studyjams2026/media/06-copy-link.png" alt="Green banner with the public profile URL" />
-            </figure>
-          </article>
-
-          <article class="step">
-            <div>
-              <span class="pill pill-b">Step 7</span>
-              <h2>Open the form</h2>
-              <p>Read the instructions on the first page and enter the email on your Google Skills account.</p>
-              <p><a href="https://docs.google.com/forms/d/e/1FAIpQLScIxD14Pyc183PbDLHcS9N-nbQRRYSncqY0TP3g7qSsfWgnKQ/viewform">Open the registration form</a></p>
-            </div>
-            <figure class="shot">
-              <img src="/studyjams2026/media/07-form-start.jpg" alt="First page of the registration form" />
-            </figure>
-          </article>
-
-          <article class="step">
-            <div>
-              <span class="pill pill-y">Step 8</span>
-              <h2>Accept the form terms</h2>
-              <p>Review the communication and tracking terms, then select Yes, I accept the terms.</p>
-            </div>
-            <figure class="shot">
-              <img src="/studyjams2026/media/08-form-terms.jpg" alt="Form page for accepting the terms" />
-            </figure>
-          </article>
-
-          <article class="step">
-            <div>
-              <span class="pill pill-b">Step 9</span>
-              <h2>Enter your details</h2>
-              <p>Enter your full name and gender. For learner category, select Student.</p>
-            </div>
-            <figure class="shot">
-              <img src="/studyjams2026/media/09-details.png" alt="Form page for name, gender, and learner category" />
-            </figure>
-          </article>
-
-          <article class="step">
-            <div>
-              <span class="pill pill-r">Step 10</span>
-              <h2>Enter the organiser code</h2>
-              <p>Under Choose your Organiser, select GDG on Campus Organizer. In the referral code box, type exactly GDGC-VITAP.</p>
-              <p>A blank or mistyped code means you will not receive the swags.</p>
-            </div>
-            <figure class="shot">
-              <img src="/studyjams2026/media/10-referral.png" alt="Form page for the organiser referral code" />
-            </figure>
-          </article>
-
-          <article class="step">
-            <div>
-              <span class="pill pill-y">Step 11</span>
-              <h2>Verify the account and email</h2>
-              <p>Select I verify to confirm the account is new, created on or after 14 September 2026.</p>
-              <p>Check the email twice. It must match the Google Skills account exactly.</p>
-            </div>
-            <figure class="shot">
-              <img src="/studyjams2026/media/11-verify.png" alt="Form page for account verification and email" />
-            </figure>
-          </article>
-
-          <article class="step">
-            <div>
-              <span class="pill pill-r">Step 12</span>
-              <h2>Paste your own profile URL</h2>
-              <p>Do not paste the example URL shown on the form. Paste the unique public profile link you copied from the green banner.</p>
-            </div>
-            <figure class="shot">
-              <img src="/studyjams2026/media/12-profile-url.jpg" alt="Form page asking for the public profile URL" />
-            </figure>
-          </article>
-
-          <article class="step">
-            <div>
-              <span class="pill pill-b">Step 13</span>
-              <h2>Acknowledge and submit</h2>
-              <p>Choose I Acknowledge that the information is correct, and Yes, I Agree to complete the learning pathway. Then submit.</p>
-            </div>
-            <figure class="shot">
-              <img src="/studyjams2026/media/13-ack.jpg" alt="Final acknowledgement page of the form" />
-            </figure>
-          </article>
-
-          <article class="step">
-            <div>
-              <span class="pill pill-g">Done</span>
-              <h2>You are enrolled</h2>
-              <p>The confirmation screen means the form landed. Watch your inbox for the welcome email and access code from Google Cloud.</p>
-            </div>
-            <figure class="shot">
-              <img src="/studyjams2026/media/14-done.png" alt="Form submitted confirmation" />
-            </figure>
-          </article>
-        </div>
+    </div>
+    <div class="col-right">
+      <div class="image-wrapper">
+        <img src="media/01-skills-home.jpg" alt="Google Skills Homepage">
       </div>
-    </main>
-    <footer class="site">
-      <div class="foot">
-        <div class="foot-brand">
-          <div class="logo">
-            <span class="dots" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
-            GDG on Campus
-          </div>
-          <p>Build together. Learn together.</p>
-        </div>
-        <div class="foot-cols">
-          <nav aria-label="Campus">
-            <b>Campus</b>
-            <a href="/">Home</a>
-            <a href="/studyjams2026/">Study Jams</a>
-          </nav>
-          <nav aria-label="Contact">
-            <b>Contact</b>
-            <a href="mailto:gdsc.club@vitap.ac.in">Email the club</a>
-          </nav>
-        </div>
+    </div>
+  </section>
+
+  <!-- Slide 3: Google Account Authorization -->
+  <section class="slide" id="slide-3">
+    <div class="col-left">
+      <div class="pill pill-y">Step 2</div>
+      <h1>Authorize<br>Account.</h1>
+      <p>Choose the Google account you want to link to Google Skills.</p>
+      <p>Click on <strong>Continue</strong> to grant access and proceed.</p>
+    </div>
+    <div class="col-right">
+      <div class="image-wrapper">
+        <img src="media/02-authorize.png" alt="Google Account Authorization">
       </div>
-      <div class="foot-note">
-        <span>GDG on Campus VIT-AP</span>
-        <div class="foot-social">
-          <a href="https://www.instagram.com/gdgoncampus.vitap" aria-label="Instagram" target="_blank" rel="noreferrer"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="1.8"></rect><circle cx="12" cy="12" r="4.2" fill="none" stroke="currentColor" stroke-width="1.8"></circle><circle cx="17.2" cy="6.8" r="1.3" fill="currentColor"></circle></svg></a>
-          <a href="https://www.linkedin.com/company/gdgoncampusvitap/" aria-label="LinkedIn" target="_blank" rel="noreferrer"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29ZM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12ZM7.12 20.45H3.56V9h3.56v11.45Z"></path></svg></a>
-          <a href="https://x.com/gdgvitap" aria-label="X" target="_blank" rel="noreferrer"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M18.9 2H22l-6.8 7.8L23.2 22h-6.3l-4.9-6.4L6.4 22H3.3l7.3-8.3L1.5 2h6.4l4.4 5.9L18.9 2Zm-1.1 18.1h1.7L7.1 3.8H5.3l12.5 16.3Z"></path></svg></a>
-          <a href="https://www.youtube.com/@gdgvitap2k25" aria-label="YouTube" target="_blank" rel="noreferrer"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31.4 31.4 0 0 0 0 12a31.4 31.4 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31.4 31.4 0 0 0 24 12a31.4 31.4 0 0 0-.5-5.8ZM9.6 15.6V8.4L15.8 12Z"></path></svg></a>
-        </div>
+    </div>
+  </section>
+
+  <!-- Slide 4: Account Setup & Terms -->
+  <section class="slide" id="slide-4">
+    <div class="col-left">
+      <div class="pill pill-b">Step 3</div>
+      <h1>Accept Terms.</h1>
+      <p>Once authorized, ensure you review and click <strong>I Accept</strong> on the Terms of Service page to access your dashboard.</p>
+    </div>
+    <div class="col-right">
+      <div class="image-wrapper">
+        <img src="media/03-terms.png" alt="Terms of Service">
       </div>
-    </footer>
-    <script src="/site.js"></script>
-  </body>
+    </div>
+  </section>
+
+  <!-- Slide 5: Navigate to Settings -->
+  <section class="slide" id="slide-5">
+    <div class="col-left">
+      <div class="pill pill-y">Step 4</div>
+      <h1>Go to Settings.</h1>
+      <p>Now that you are on your Dashboard, look at the top right corner.</p>
+      <p>Click on your <strong>Profile Avatar</strong> to open the dropdown menu, and click on <strong>Settings</strong>.</p>
+    </div>
+    <div class="col-right">
+      <div class="image-wrapper">
+        <img src="media/04-settings.jpg" alt="Profile Dropdown">
+      </div>
+    </div>
+  </section>
+
+  <!-- Slide 6: Make Profile Public -->
+  <section class="slide" id="slide-6">
+    <div class="col-left">
+      <div class="pill pill-r">Step 5 â€¢ CRITICAL</div>
+      <h1>Make it Public.</h1>
+      <p>This is the most important step! Under the "Public visibility" section, you <strong>MUST</strong> check the box that says <strong>Make profile public</strong>.</p>
+    </div>
+    <div class="col-right">
+      <div class="image-wrapper">
+        <img src="media/05-public.png" alt="Account Settings">
+      </div>
+    </div>
+  </section>
+
+  <!-- Slide 7: Copy Your Link -->
+  <section class="slide" id="slide-7">
+    <div class="col-left">
+      <div class="pill pill-g">Step 6</div>
+      <h1>Copy Your Link.</h1>
+      <p>Once you check the box, look for the green banner that says "Your profile is public and accessible at...".</p>
+      <p><strong>Copy that exact URL link</strong> shown inside the green banner.</p>
+    </div>
+    <div class="col-right">
+      <div class="image-wrapper">
+        <img src="media/06-copy-link.png" alt="Copy Public Profile URL">
+      </div>
+    </div>
+  </section>
+
+<!-- Scan & Link (NEW SLIDE) -->
+  <section class="slide" id="slide-scan">
+    <div class="col-left">
+      <div class="pill pill-y">Scan & Register</div>
+      <h1>Access the Form.</h1>
+      <p>Now that your profile is public and you have your URL copied, it's time to register.</p>
+      <p>Scan the QR code on the right with your phone, or click the button below to open the form.</p>
+      <a href="https://docs.google.com/forms/d/e/1FAIpQLScIxD14Pyc183PbDLHcS9N-nbQRRYSncqY0TP3g7qSsfWgnKQ/viewform" target="_blank" class="btn-primary" style="display: inline-block; background: #4285F4; color: white; padding: 15px 32px; border-radius: 8px; text-decoration: none; font-size: 1.2rem; font-weight: 700; margin-top: 10px;">Open Registration Form &rarr;</a>
+    </div>
+    <div class="col-right">
+      <div style="background: white; padding: 40px; border-radius: 20px; text-align: center; box-shadow: 0 15px 35px rgba(0,0,0,0.15); border: 2px solid #E8EAED;">
+        <h2 style="color: #202124; margin-bottom: 20px;">Scan to Register</h2>
+        <img src="https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=https%3A%2F%2Fdocs.google.com%2Fforms%2Fd%2Fe%2F1FAIpQLScIxD14Pyc183PbDLHcS9N-nbQRRYSncqY0TP3g7qSsfWgnKQ%2Fviewform" alt="Form QR" style="width: 250px; height: 250px; border-radius: 10px; border: 2px solid #E8EAED;">
+      </div>
+    </div>
+  </section>
+
+  <!-- Slide 8: Form - Page 1 -->
+  <section class="slide" id="slide-8">
+    <div class="col-left">
+      <div class="pill pill-b">Step 7</div>
+      <h1>Open the Form.</h1>
+      <p>Scan the QR code provided by the GDG Team to open the Google Registration Form.</p>
+      <p>Read the instructions carefully and enter your registered email address.</p>
+    </div>
+    <div class="col-right">
+      <div class="image-wrapper">
+        <img src="media/07-form-start.jpg" alt="Form Page 1">
+      </div>
+    </div>
+  </section>
+
+  <!-- Slide 9: Form - Page 2 -->
+  <section class="slide" id="slide-9">
+    <div class="col-left">
+      <div class="pill pill-y">Step 8</div>
+      <h1>Accept the Terms.</h1>
+      <p>Review the communication and tracking terms.</p>
+      <p>Select <strong>"Yes, I accept the terms"</strong> to proceed to the next page.</p>
+    </div>
+    <div class="col-right">
+      <div class="image-wrapper">
+        <img src="media/08-form-terms.jpg" alt="Form Page 2">
+      </div>
+    </div>
+  </section>
+
+  <!-- Slide 10: Form - Page 3 -->
+  <section class="slide" id="slide-10">
+    <div class="col-left">
+      <div class="pill pill-b">Step 9</div>
+      <h1>Personal Details.</h1>
+      <p>Enter your Full Name and Gender.</p>
+      <p>For the Learner Category, make sure you select <strong>Student</strong>.</p>
+    </div>
+    <div class="col-right">
+      <div class="image-wrapper">
+        <img src="media/09-details.png" alt="Form Page 3">
+      </div>
+    </div>
+  </section>
+
+  <!-- Slide 11: Form - Page 4 -->
+  <section class="slide" id="slide-11">
+    <div class="col-left">
+      <div class="pill pill-r">Step 10 â€¢ DO NOT SKIP</div>
+      <h1>The Referral Code.</h1>
+      <p>Under "Choose your Organiser", select <strong>GDG on Campus Organizer</strong>.</p>
+      <p>In the text box for "Organizer's Referral Code", you must type exactly: <strong>GDGC-VITAP</strong></p>
+      <p style="color: var(--g-red); font-weight: 700;">If you leave this blank or type it wrong, you will not receive any swags!</p>
+    </div>
+    <div class="col-right">
+      <div class="image-wrapper">
+        <img src="media/10-referral.png" alt="Form Page 4 - Referral Code">
+      </div>
+    </div>
+  </section>
+
+  <!-- Slide 12: Form - Page 5 -->
+  <section class="slide" id="slide-12">
+    <div class="col-left">
+      <div class="pill pill-y">Step 11 â€¢ WARNING</div>
+      <h1>Verify Account<br>& Email.</h1>
+      <p>You must select "I verify" confirming your account is new (created on/after Sept 14, 2026).</p>
+      <p style="color: var(--g-red); font-weight: 700;">DOUBLE CHECK YOUR EMAIL!</p>
+      <p>Ensure the email typed here matches your Google Skills account exactly.</p>
+    </div>
+    <div class="col-right">
+      <div class="image-wrapper">
+        <img src="media/11-verify.png" alt="Form Page 5 - Verify Email">
+      </div>
+    </div>
+  </section>
+
+  <!-- Slide 13: Form - Page 6 -->
+  <section class="slide" id="slide-13">
+    <div class="col-left">
+      <div class="pill pill-r">Step 12 â€¢ FATAL ERROR RISK</div>
+      <h1>Paste Your URL.</h1>
+      <p>This is where applications get rejected!</p>
+      <p><strong>DO NOT</strong> copy-paste the example URL text shown on the form.</p>
+      <p>You must paste the <strong>unique Public Profile URL</strong> that you copied from the green banner earlier.</p>
+    </div>
+    <div class="col-right">
+      <div class="image-wrapper">
+        <img src="media/12-profile-url.jpg" alt="Form Page 6 - Paste URL">
+      </div>
+    </div>
+  </section>
+
+  <!-- Slide 14: Form - Page 7 -->
+  <section class="slide" id="slide-14">
+    <div class="col-left">
+      <div class="pill pill-b">Step 13</div>
+      <h1>Acknowledgements.</h1>
+      <p>Almost done! Review the final declarations.</p>
+      <p>Click <strong>"I Acknowledge"</strong> that your information is correct, and <strong>"Yes, I Agree"</strong> to complete the learning pathway.</p>
+    </div>
+    <div class="col-right">
+      <div class="image-wrapper">
+        <img src="media/13-ack.jpg" alt="Acknowledgements">
+      </div>
+    </div>
+  </section>
+
+  <!-- Slide 15: Success -->
+  <section class="slide" id="slide-15">
+    <div class="col-left">
+      <div class="pill pill-g">Success</div>
+      <h1>You're Enrolled!</h1>
+      <p>Once you hit submit, you should see this confirmation screen.</p>
+      <p>Keep an eye on your inbox for the official welcome email and access code from Google Cloud.</p>
+      <p style="font-weight: 700; color: var(--g-dark);">Time to start learning and earning those badges!</p>
+    </div>
+    <div class="col-right">
+      <div class="image-wrapper">
+        <img src="media/14-done.png" alt="Form Submitted">
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<script>
+  const container = document.getElementById('deckContainer');
+  function nextSlide() { container.scrollBy({ top: window.innerHeight, behavior: 'smooth' }); }
+  function prevSlide() { container.scrollBy({ top: -window.innerHeight, behavior: 'smooth' }); }
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowDown' || e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); nextSlide(); }
+    else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') { e.preventDefault(); prevSlide(); }
+  });
+setInterval(() => {
+    if (container.scrollTop + container.clientHeight >= container.scrollHeight - 10) {
+      container.scrollTo({ top: 0, behavior: 'smooth' }); 
+    } else {
+      nextSlide();
+    }
+  }, 10000);
+</script>
+
+</body>
 </html>
